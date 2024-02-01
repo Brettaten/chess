@@ -149,18 +149,27 @@ public class GameTimer implements Runnable {
             time[3] = Character.getNumericValue(String.valueOf(newTime).charAt(3));
         }
 
-        for (int i = 2; i > 0; i--) {
+        for (int i = 2; i >= 0; i--) {
             if (i == 2 && time[i] >= 6) {
+                int temp = time[i];
                 time[i] = 0;
-                for (int j = time[i]; j > 7; j--) {
+                for (int j = temp; j >= 7; j--) {
                     time[i]++;
                 }
             } else if (i == 1) {
-                time[i]++;
-                if (time[i] != 0) {
-                    break;
+                if(time[i] == 9){
+                    time[i] = 0;
+                }
+                else{
+                    time[i]++;
+                    if (time[i] != 0) {
+                        break;
+                    }
                 }
             } else if (i == 0) {
+                if(time[i] == 9){
+                    break;
+                }
                 time[i]++;
                 if (time[i] != 0) {
                     break;
