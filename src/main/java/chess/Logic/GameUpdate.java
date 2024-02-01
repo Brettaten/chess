@@ -970,7 +970,7 @@ public class GameUpdate {
             lastSelectedX = -1;
             lastSelectedY = -1;
             isMovePiece = false;
-            if (Settings.style == "Player vs. AI") {
+            if (Settings.style == "Player vs. AI" && !isEnd) {
                 new Thread(() -> {
                     nextMove();
                 }).start();
