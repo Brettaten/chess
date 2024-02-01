@@ -33,15 +33,11 @@ public class BottomInput implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
         gameUpdate = Game.gameUpdate;
         if (gameUpdate.settingsActive == false) {
             if (e.getSource() == arrowLeft) {
@@ -56,6 +52,11 @@ public class BottomInput implements MouseListener {
                 gameUpdate.newGame();
             }
         }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
     }
 
     @Override

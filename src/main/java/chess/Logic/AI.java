@@ -840,38 +840,38 @@ public class AI {
             System.out.println("Material: " +rating);
 
             // check safety of king
-//            int[] fields = {-1, -1, -1, 0, -1, 1, 0, 1, 1, 1, 1, 0, 1, -1, 0, -1, 0, 0};
-//
-//            int[] aiKing = getKing(position, aiColor);
-//            int[] playerKing = getKing(position, playerColor);
-//
-//            double aiKingRating = 0.0;
-//            double playerKingRating = 0.0;
-//
-//            for (int i = 0; i < fields.length; i += 2) {
-//                if (aiKing[0] + fields[i] >= 0 && aiKing[0] + fields[i] <= 8 && aiKing[1] + fields[i + 1] >= 0 && aiKing[1] + fields[i + 1] <= 8) {
-//                    ArrayList<Integer> attackingPiecesAI = isAttacked(position, aiColor, aiKing[0] + fields[i], aiKing[1] + fields[i + 1]);
-//                    ArrayList<Integer> attackingPiecesPlayer = isAttacked(position, playerColor, aiKing[0] + fields[i], aiKing[1] + fields[i + 1]);
-//
-//                    if (fields[i] == 0 && fields[i + 1] == 0) {
-//                        aiKingRating += getKingSafety(attackingPiecesAI, attackingPiecesPlayer, aiColor, true);
-//                    } else {
-//                        aiKingRating += getKingSafety(attackingPiecesAI, attackingPiecesPlayer, aiColor, false);
-//                    }
-//                }
-//                if (playerKing[0] + fields[i] >= 0 && playerKing[0] + fields[i] <= 8 && playerKing[1] + fields[i + 1] >= 0 && playerKing[1] + fields[i + 1] <= 8) {
-//                    ArrayList<Integer> attackingPiecesAI = isAttacked(position, aiColor, playerKing[0] + fields[i], playerKing[1] + fields[i + 1]);
-//                    ArrayList<Integer> attackingPiecesPlayer = isAttacked(position, playerColor, playerKing[0] + fields[i], playerKing[1] + fields[i + 1]);
-//
-//                    if (fields[i] == 0 && fields[i + 1] == 0) {
-//                        playerKingRating += getKingSafety(attackingPiecesAI, attackingPiecesPlayer, playerColor, true);
-//                    } else {
-//                        playerKingRating += getKingSafety(attackingPiecesAI, attackingPiecesPlayer, playerColor, false);
-//                    }
-//                }
-//            }
-//
-//            rating += aiKingRating - playerKingRating;
+            int[] fields = {-1, -1, -1, 0, -1, 1, 0, 1, 1, 1, 1, 0, 1, -1, 0, -1, 0, 0};
+
+            int[] aiKing = getKing(position, aiColor);
+            int[] playerKing = getKing(position, playerColor);
+
+            double aiKingRating = 0.0;
+            double playerKingRating = 0.0;
+
+            for (int i = 0; i < fields.length; i += 2) {
+                if (aiKing[0] + fields[i] >= 0 && aiKing[0] + fields[i] <= 8 && aiKing[1] + fields[i + 1] >= 0 && aiKing[1] + fields[i + 1] <= 8) {
+                    ArrayList<Integer> attackingPiecesAI = isAttacked(position, aiColor, aiKing[0] + fields[i], aiKing[1] + fields[i + 1]);
+                    ArrayList<Integer> attackingPiecesPlayer = isAttacked(position, playerColor, aiKing[0] + fields[i], aiKing[1] + fields[i + 1]);
+
+                    if (fields[i] == 0 && fields[i + 1] == 0) {
+                        aiKingRating += getKingSafety(attackingPiecesAI, attackingPiecesPlayer, aiColor, true);
+                    } else {
+                        aiKingRating += getKingSafety(attackingPiecesAI, attackingPiecesPlayer, aiColor, false);
+                    }
+                }
+                if (playerKing[0] + fields[i] >= 0 && playerKing[0] + fields[i] <= 8 && playerKing[1] + fields[i + 1] >= 0 && playerKing[1] + fields[i + 1] <= 8) {
+                    ArrayList<Integer> attackingPiecesAI = isAttacked(position, aiColor, playerKing[0] + fields[i], playerKing[1] + fields[i + 1]);
+                    ArrayList<Integer> attackingPiecesPlayer = isAttacked(position, playerColor, playerKing[0] + fields[i], playerKing[1] + fields[i + 1]);
+
+                    if (fields[i] == 0 && fields[i + 1] == 0) {
+                        playerKingRating += getKingSafety(attackingPiecesAI, attackingPiecesPlayer, playerColor, true);
+                    } else {
+                        playerKingRating += getKingSafety(attackingPiecesAI, attackingPiecesPlayer, playerColor, false);
+                    }
+                }
+            }
+
+            rating += aiKingRating - playerKingRating;
 
 
             // check the development in the position
@@ -1029,7 +1029,7 @@ public class AI {
 
             if(gameUpdate.maxMove <= 20){
                 int centerDiff = getCenter(position, aiColor, playerColor);
-                final double centerRating = 2;
+                final double centerRating = 1.5;
 
                 rating += centerRating * centerDiff;
             }
@@ -1421,9 +1421,9 @@ public class AI {
     }
 
     private static Double getKingSafety(ArrayList<Integer> attackingPiecesAI, ArrayList<Integer> attackingPiecesPlayer, int color, boolean isCheck) {
-        final double safetyRating = 0.05;
-        final double safetyMultiplier = -0.01;
-        final double safetyCheck = 0.02;
+        final double safetyRating = 1;
+        final double safetyMultiplier = -0.2;
+        final double safetyCheck = 0.4;
 
         if (color == gameUpdate.currentPlayer && !attackingPiecesPlayer.isEmpty() && isCheck) {
             return safetyCheck;

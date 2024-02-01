@@ -1505,8 +1505,12 @@ public class GameUpdate {
         if (Game.frame.top.isPromotionNull() == false) {
             Game.frame.top.removePromotion();
         }
-        gameTimer1.setNull();
-        gameTimer2.setNull();
+        if(gameTimer1 != null){
+            gameTimer1.setNull();
+        }
+        if(gameTimer2 != null){
+            gameTimer2.setNull();
+        }
 
     }
 
