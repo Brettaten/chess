@@ -11,6 +11,8 @@ import chess.Logic.GameUpdate;
 public class Input implements MouseInputListener {
     private int x;
     private int y;
+    private int startDraggx;
+    private int startDraggy;
     private GameUpdate gameUpdate;
 
     public Input(GameUpdate gameUpdate, boolean promotion, int posX, int posY) {
@@ -35,6 +37,9 @@ public class Input implements MouseInputListener {
                     && gameUpdate.settingsActive == false) {
                 y = e.getX() / 100;
                 x = e.getY() / 100;
+
+                startDraggx = x;
+                startDraggy = y;
 
                 gameUpdate.isDragged = false;
                 if (gameUpdate.isSelected(x, y)) {
@@ -77,7 +82,7 @@ public class Input implements MouseInputListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         gameUpdate = Game.gameUpdate;
-        if (SwingUtilities.isLeftMouseButton(e) && gameUpdate.isPlayer()){
+        if (SwingUtilities.isLeftMouseButton(e) && gameUpdate.isPlayer() && gameUpdate.pieces[startDraggx][startDraggy] != null){
             gameUpdate.clearMarkedList();
             if (gameUpdate.isPromoting == false && gameUpdate.maxMove == gameUpdate.currentMove
                     && gameUpdate.surrender == false && gameUpdate.isEnd == false

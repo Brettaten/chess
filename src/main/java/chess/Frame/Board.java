@@ -35,6 +35,7 @@ public class Board extends JPanel {
 
         this.gameUpdate = gameUpdate;
         this.isDragged = false;
+        this.draggType = -1;
         this.draggX = -1;
         this.draggPosY = -1;
         this.setBorder(new LineBorder(Colors.borderColor, 5));
@@ -200,8 +201,11 @@ public class Board extends JPanel {
             else if(y >= 0+25 && y <= 800-25){
                 draggY = y;
             }
-            
-            draggType = type;
+
+            if(draggType == -1){
+                draggType = type;
+            }
+
             this.draggPosX = posX;
             this.draggPosY = posY;
         }
@@ -212,5 +216,6 @@ public class Board extends JPanel {
         
         draggPosX = -1;
         draggPosY = -1;
+        draggType = -1;
     }
 }
