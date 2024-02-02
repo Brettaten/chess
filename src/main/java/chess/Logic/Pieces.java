@@ -14,6 +14,7 @@ public class Pieces {
         this.type = type;
         this.gameUpdate = gameUpdate;
         this.ignoreColors = ignoreColors;
+        this.front = gameUpdate.getFront();
     }
 
     public ArrayList<Integer> possibleMoves(int posX, int posY, int check, String[][] pieces){
@@ -235,7 +236,7 @@ public class Pieces {
                     break;
                 case 10,11:
                     int factor;
-                    if(gameUpdate.front && gameUpdate.getCurrentPlayer() == 1 || !gameUpdate.front && gameUpdate.getCurrentPlayer() == 0){
+                    if(front && gameUpdate.getCurrentPlayer() == 1 || !front && gameUpdate.getCurrentPlayer() == 0){
                         factor = -1;
                     }
                     else{
@@ -282,11 +283,11 @@ public class Pieces {
                         if(gameUpdate.enPassent != null){
                             if(posY == Character.getNumericValue(gameUpdate.enPassent.charAt(1)) && posX ==  Character.getNumericValue(gameUpdate.enPassent.charAt(0)) && !gameUpdate.isChecked(posX, posY, posX + (factor), Character.getNumericValue(gameUpdate.enPassent.charAt(1)), type, true, pieces)){
 
-                                if(gameUpdate.front && pieceColor == 1 ||!gameUpdate.front && pieceColor == 0){
+                                if(front && pieceColor == 1 ||!front && pieceColor == 0){
                                     list.add(posX + (factor));
                                     list.add(posY + (-factor));
                                 }
-                                else if (!gameUpdate.front && pieceColor == 1 || gameUpdate.front && pieceColor == 0){
+                                else if (!front && pieceColor == 1 || front && pieceColor == 0){
                                     list.add(posX + (factor));
                                     list.add(posY + (factor));
                                 }
@@ -294,11 +295,11 @@ public class Pieces {
                             }
                             else if(posY == Character.getNumericValue(gameUpdate.enPassent.charAt(3)) && posX ==  Character.getNumericValue(gameUpdate.enPassent.charAt(2)) && !gameUpdate.isChecked(posX, posY, posX + (factor), Character.getNumericValue(gameUpdate.enPassent.charAt(3)), type, true, pieces)){
 
-                                if(gameUpdate.front && pieceColor == 1 ||!gameUpdate.front && pieceColor == 0){
+                                if(front && pieceColor == 1 ||!front && pieceColor == 0){
                                     list.add(posX + (factor));
                                     list.add(posY + (factor));
                                 }
-                                else if (!gameUpdate.front && pieceColor == 1 || gameUpdate.front && pieceColor == 0){
+                                else if (!front && pieceColor == 1 || front && pieceColor == 0){
                                     list.add(posX + (factor));
                                     list.add(posY + (-factor));
                                 }
@@ -519,7 +520,7 @@ public class Pieces {
                     break;
                 case 10,11:
                     int factor;
-                    if(gameUpdate.front && gameUpdate.getCurrentPlayer() == 1 || !gameUpdate.front && gameUpdate.getCurrentPlayer() == 0){
+                    if(front && gameUpdate.getCurrentPlayer() == 1 || !front && gameUpdate.getCurrentPlayer() == 0){
                         factor = -1;
                     }
                     else{

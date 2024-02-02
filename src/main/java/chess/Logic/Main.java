@@ -30,6 +30,9 @@ import java.util.ArrayList;
  * Time doesnt work properly in rotate mode 
  * promotion doesnt work properly (if you watch the prevoius moves and come back there is a pawn instead of a queen)
  * unlimited Time option
+ * time
+ * jumping to current move when ai made a move and player skipped through latest mvoes
+ * adding pieces of wrong color to the side panel when skipping through latest moves
  */
 public class Main {
     public static void main(String[] args) {

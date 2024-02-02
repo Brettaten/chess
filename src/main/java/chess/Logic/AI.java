@@ -405,9 +405,14 @@ public class AI {
             }
         }
 
-        System.out.println("----------------------------------------------------------------------------------------------");
+        int[] result = {x1, y1, x2, y2};
 
-        return new int[]{x1, y1, x2, y2};
+        if(gameUpdate.front != gameUpdate.frontAI){
+            result = gameUpdate.rotateArr(result);
+        }
+
+
+        return result;
     }
 
     private static void checkIfCastled() {
@@ -778,31 +783,6 @@ public class AI {
 
         for (String[][] position : positions) {
 
-                for(int i = 0; i < 8; i++){
-                    for(int j = 0; j < 8; j++){
-                        if(position[i][j] != null){
-                            String s = position[i][j];
-                            if(s.length() < 4){
-                                if(s.length() == 2){
-                                    s = s + "xx";
-                                }
-                                else{
-                                    s = s + "x";
-                                }
-                            }
-                            System.out.print(s);
-                        }
-                        else{
-                            System.out.print(position[i][j]);
-                        }
-                        System.out.print("|");
-                    }
-                    System.out.print("\n");
-                }
-
-            if(positions.size() == 32 && Arrays.deepEquals(position, positions.get(21))){
-                int kj = 0;
-            }
             double rating = 0.0;
             boolean isRemis = false;
 
@@ -826,10 +806,9 @@ public class AI {
                 ratings.add(rating);
                 continue;
             }
-            System.out.println("isEnd: " +rating);
 
             // check the material difference
-            final double ratingPerMaterial = 7;
+            final double ratingPerMaterial = 10;
             int materialDiff = compareMaterial(position, aiColor);
 
             if (materialDiff > 0) {
@@ -837,7 +816,6 @@ public class AI {
             } else if (materialDiff < 0) {
                 rating += materialDiff * ratingPerMaterial;
             }
-            System.out.println("Material: " +rating);
 
             // check safety of king
             int[] fields = {-1, -1, -1, 0, -1, 1, 0, 1, 1, 1, 1, 0, 1, -1, 0, -1, 0, 0};
@@ -974,7 +952,6 @@ public class AI {
 //            final double pawnRating = 0.03;
 //            rating += pawn * pawnRating;
 
-            System.out.println("development: " +rating);
 
             // check if pieces are hanging
 
@@ -1014,7 +991,6 @@ public class AI {
 
             rating += ratingPerMaterial * diffHangingPieces;
 
-            System.out.println("hangingPieces: " +rating);
 
             // dont move heavyPieces early
 
@@ -1023,7 +999,6 @@ public class AI {
                 final double ratingForMovingHeavyPiece = 5;
                 rating += diffHeavyPieces * ratingForMovingHeavyPiece;
             }
-            System.out.println("heavypiecesmovedearly: " +rating);
 
             // control the center
 
@@ -1033,7 +1008,6 @@ public class AI {
 
                 rating += centerRating * centerDiff;
             }
-            System.out.println("control of center: " +rating);
 
             final double remisRating = 1.5;
 
@@ -1224,11 +1198,6 @@ public class AI {
         int amountOfAttackers = attackingPieces.size();
         int amountOfDefenders = defendingPieces.size();
 
-        System.out.println("________________________________");
-        System.out.println("Attackers: " + amountOfAttackers);
-        System.out.println("Defenders: " + amountOfDefenders);
-        System.out.println("Target: " + "|" + x + "|" + y + "|");
-        System.out.println("________________________________");
 
 
         int attackedPiece = getMaterial(gameUpdate.getType(x, y, position));

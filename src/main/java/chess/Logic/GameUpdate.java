@@ -12,6 +12,7 @@ import chess.Frame.Player;
 import chess.Frame.Promotion;
 
 public class GameUpdate {
+    public boolean frontAI;
     private boolean color;
     private boolean colorFixed;
     public boolean rotateBoard;
@@ -662,6 +663,11 @@ public class GameUpdate {
             setUpTimer();
         }
 
+        if(currentMove != maxMove){
+            pieces = deepCopy(history1.get(maxMove));
+            currentMove = maxMove;
+        }
+
         lastMove[0] = posX;
         lastMove[1] = posY;
         lastMove[2] = selectedX;
@@ -773,7 +779,9 @@ public class GameUpdate {
                 moveList0.add(move);
                 moveList1.add(rotateArr(move));
             }
-            currentMove++;
+            if(currentMove == maxMove){
+                currentMove++;
+            }
             maxMove++;
         }
 
@@ -1414,7 +1422,7 @@ public class GameUpdate {
         return rotatePieces;
     }
 
-    private int[] rotateArr(int[] arr) {
+    public int[] rotateArr(int[] arr) {
         int[] temp = new int[arr.length];
         for (int j = 0; j < arr.length; j++) {
             int counter = 0;
@@ -1572,6 +1580,7 @@ public class GameUpdate {
 
     private void nextMove() {
         if (colorFixed == true && currentPlayer == 0 || colorFixed == false && currentPlayer == 1) {
+            frontAI = front;
             isAI = true;
             int[] move = new int[4];
             move = AI.calculateMove(pieces);
@@ -1615,6 +1624,12 @@ public class GameUpdate {
     }
     public boolean getColor(){
         return color;
+    }
+    public boolean getFront(){
+        if(isAI){
+            return frontAI;
+        }
+        return front;
     }
 
     public boolean isAttackedAI(int kingX, int kingY, int color, String[][] position){
