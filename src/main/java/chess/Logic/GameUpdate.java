@@ -5,11 +5,7 @@ import java.util.Arrays;
 
 import javax.swing.SwingUtilities;
 
-import chess.Frame.Top;
-import chess.Frame.GameTimerPanel;
-import chess.Frame.MenuBar;
-import chess.Frame.Player;
-import chess.Frame.Promotion;
+import chess.Frame.*;
 
 public class GameUpdate {
     public boolean frontAI;
@@ -1438,14 +1434,14 @@ public class GameUpdate {
         lastSelectedX = -1;
         lastSelectedY = -1;
 
-        if (isSelected == false && pieces[x / 100][y / 100] != null
-                && getColor(x / 100, y / 100, pieces) == currentPlayer) {
-            if (selectedX != x / 100 || selectedY != y / 100 || isDragged == false) {
-                selectPiece(x / 100, y / 100);
+        if (isSelected == false && pieces[x / Board.squareSize][y / Board.squareSize] != null
+                && getColor(x / Board.squareSize, y / Board.squareSize, pieces) == currentPlayer) {
+            if (selectedX != x / Board.squareSize || selectedY != y / Board.squareSize || isDragged == false) {
+                selectPiece(x / Board.squareSize, y / Board.squareSize);
             }
-            draggType = getType(x / 100, y / 100, pieces);
-            draggPosX = x / 100;
-            draggPosY = y / 100;
+            draggType = getType(x / Board.squareSize, y / Board.squareSize, pieces);
+            draggPosX = x / Board.squareSize;
+            draggPosY = y / Board.squareSize;
         }
         isSelected = true;
         isDragged = true;

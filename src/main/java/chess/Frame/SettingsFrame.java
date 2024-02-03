@@ -1,13 +1,6 @@
 package chess.Frame;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +32,7 @@ import javax.swing.plaf.basic.ComboPopup;
 
 import chess.Inputs.SettingsInput;
 import chess.Logic.Colors;
+import chess.Logic.Game;
 import chess.Logic.Settings;
 
 public class SettingsFrame extends JPanel {
@@ -115,7 +109,7 @@ public class SettingsFrame extends JPanel {
     private void setGUI() {
         UIManager.put("ComboBox.selectionBackground", Color.DARK_GRAY);
         UIManager.put("ComboBox.selectionForeground", Color.WHITE);
-        UIManager.put("Label.font", new Font(null, Font.PLAIN, 20));
+        UIManager.put("Label.font", new Font(null, Font.PLAIN, (int) (Game.screenHeight*0.0185)));
     }
 
     private void setSettings() {
@@ -172,7 +166,7 @@ public class SettingsFrame extends JPanel {
 
         JPanel textPanelC = new JPanel();
         textPanelC.add(checkBox);
-        textPanelC.setPreferredSize(new Dimension(100, 40));
+        textPanelC.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double) 100/1920)), (int) (Game.screenHeight * ((double) 40/1080))));
         textPanelC.setBackground(Color.DARK_GRAY);
 
         checkBoxImg = new JLabel();
@@ -187,13 +181,13 @@ public class SettingsFrame extends JPanel {
         imgPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         imgPanel.add(checkBoxImg);
         imgPanel.setBackground(Color.DARK_GRAY);
-        imgPanel.setPreferredSize(new Dimension(125, 40));
+        imgPanel.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double) 125/1920)), (int) (Game.screenHeight * ((double) 40/1080))));
 
         JPanel checkBoxPanel = new JPanel();
         checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.X_AXIS));
 
         checkBoxPanel.setBackground(Color.DARK_GRAY);
-        checkBoxPanel.setPreferredSize(new Dimension(320, 40));
+        checkBoxPanel.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double) 320/1920)), (int) (Game.screenHeight * ((double) 40/1080))));
         checkBoxPanel.add(textPanelC);
         checkBoxPanel.add(imgPanel);
         checkBoxPanel.setBorder(new MatteBorder(0, 0, 2, 0, Colors.borderColor));
@@ -220,7 +214,7 @@ public class SettingsFrame extends JPanel {
         buttonPanel = new JPanel();
 
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
-        buttonPanel.setPreferredSize(new Dimension(this.getWidth(), 50));
+        buttonPanel.setPreferredSize(new Dimension(this.getWidth(), (int) (Game.screenHeight * ((double) 50/1080))));
         buttonPanel.setBackground(Color.DARK_GRAY);
 
         panelL = new JPanel();
@@ -262,7 +256,7 @@ public class SettingsFrame extends JPanel {
         header.setBackground(Color.DARK_GRAY);
 
         text = new JLabel("Game Settings");
-        text.setFont(new Font(null, Font.PLAIN, 30));
+        text.setFont(new Font(null, Font.PLAIN, (int) (Game.screenHeight*0.0277)));
         text.setBackground(Color.DARK_GRAY);
         text.setForeground(Color.WHITE);
         text.setOpaque(true);
@@ -285,7 +279,7 @@ public class SettingsFrame extends JPanel {
 
         textPanel = new JPanel();
         textPanel.setBackground(Color.DARK_GRAY);
-        textPanel.setPreferredSize(new Dimension(100, 40));
+        textPanel.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double) 100/1920)), (int) (Game.screenHeight * ((double) 40/1080))));
 
         text = new JLabel();
         text.setForeground(Color.WHITE);
@@ -294,7 +288,7 @@ public class SettingsFrame extends JPanel {
         switch (i) {
             case 1:
                 text.setText("Color");
-                textPanel.setPreferredSize(new Dimension(100, 40));
+                textPanel.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double) 100/1920)), (int) (Game.screenHeight * ((double) 40/1080))));
                 comPanel.setLayout(new BoxLayout(comPanel, BoxLayout.Y_AXIS));
                 break;
             case 2:
@@ -353,8 +347,9 @@ public class SettingsFrame extends JPanel {
         combobox.setBackground(Color.BLACK);
         combobox.setForeground(Color.WHITE);
         combobox.setBorder(new LineBorder(Color.WHITE, 1));
-        combobox.setPreferredSize(new Dimension(150, 30));
+        combobox.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double) 150/1920)), (int) (Game.screenHeight * ((double) 30/1080))));
         combobox.setUI(new MyComboBoxUI());
+        combobox.setFont(new Font(null, Font.PLAIN, (int) (Game.screenHeight*0.0138)));
         combobox.setMaximumRowCount(combobox.getItemCount());
 
         if (i == 2) {
@@ -374,7 +369,7 @@ public class SettingsFrame extends JPanel {
     private Component createColorSelection() {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-        panel.setPreferredSize(new Dimension(320, 100));
+        panel.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double) 320/1920)), (int) (Game.screenHeight * ((double) 100/1080))));
         panel.setBackground(Color.DARK_GRAY);
 
         white = new JLabel(new ImageIcon(piecesImg[0]));
@@ -415,9 +410,9 @@ public class SettingsFrame extends JPanel {
 
         try {
             img = ImageIO.read(is1);
-            piecesImg[1] = ImageIO.read(is2);
-            imgPassive = ImageIO.read(is3);
-            imgActive = ImageIO.read(is4);
+            piecesImg[1] = scaleImage(ImageIO.read(is2), Board.squareSize, Board.squareSize);
+            imgPassive = scaleImage(ImageIO.read(is3), (int) (Game.screenHeight * ((double)25 / 1080)), (int) (Game.screenHeight * ((double)25 / 1080)));
+            imgActive = scaleImage(ImageIO.read(is4), (int) (Game.screenHeight * ((double)25 / 1080)), (int) (Game.screenHeight * ((double)25 / 1080)));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -432,10 +427,17 @@ public class SettingsFrame extends JPanel {
     }
 
     private void addImg() {
+        piecesImg[0] = scaleImage(img.getSubimage(0, 0, 100, 100), Board.squareSize, Board.squareSize);
+        piecesImg[2] = scaleImage(img.getSubimage(0, 100, 100, 100), Board.squareSize, Board.squareSize);
+    }
 
-        piecesImg[0] = img.getSubimage(0, 0, 100, 100);
-        piecesImg[2] = img.getSubimage(0, 100, 100, 100);
-
+    public BufferedImage scaleImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
+        BufferedImage scaledImage = new BufferedImage(targetWidth, targetHeight, originalImage.getType());
+        Graphics2D g = scaledImage.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+        g.dispose();
+        return scaledImage;
     }
 
     private static ImageIcon arrow() {

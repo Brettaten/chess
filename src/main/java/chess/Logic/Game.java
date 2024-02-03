@@ -5,12 +5,17 @@ import chess.Frame.Frame;
 import chess.Frame.GameTimerPanel;
 import chess.Frame.Player;
 
+import java.awt.*;
+
 public class Game implements Runnable {
     Thread thread;
     private int FPS = 1000;
     public static Board board;
     public static Frame frame;
     public static GameUpdate gameUpdate;
+
+    public static int screenWidth;
+    public static int screenHeight;
     public static Player player1;
     public static Player player2;
     private int currentPlayer;
@@ -19,6 +24,9 @@ public class Game implements Runnable {
     public static boolean validating;
 
     public Game() {
+        Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+        screenWidth = (int) screensize.getWidth();
+        screenHeight = (int) screensize.getHeight();
         validating = true;
         Ressources.importPieces();
         Colors.changeTheme(0);

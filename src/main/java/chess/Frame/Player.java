@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import chess.Logic.Colors;
+import chess.Logic.Game;
 import chess.Logic.Ressources;
 
 import java.awt.Dimension;
@@ -31,7 +32,10 @@ public class Player extends JPanel {
     public JLabel text;
 
     public Player(int i) {
-        this.setPreferredSize(new Dimension(560, 200));
+        double widthFactor = (double) 560 /1920;
+        double heightFactor = (double) 200/1080;
+
+        this.setPreferredSize(new Dimension((int) (Game.screenWidth * widthFactor), (int) (Game.screenHeight * heightFactor)));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(Colors.backgroundColor);
 
@@ -46,11 +50,11 @@ public class Player extends JPanel {
     private void setUpPlayerPanel() {
         player = new JPanel();
         player.setBackground(Colors.backgroundColor);
-        player.setPreferredSize(new Dimension(0, 50));
+        player.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * ((double) 50/1080))));
 
         text = new JLabel();
         text.setForeground(Colors.foreground);
-        text.setFont(new Font(null, Font.PLAIN, 40));
+        text.setFont(new Font((String) null, Font.PLAIN, (int) (0.037 * Game.screenHeight)));
         player.add(text);
 
         this.add(player);
@@ -59,7 +63,7 @@ public class Player extends JPanel {
     private void setUpPanel() {
         piecePanel = new JPanel();
         piecePanel.setLayout(new BoxLayout(piecePanel, BoxLayout.Y_AXIS));
-        piecePanel.setPreferredSize(new Dimension(0, 150));
+        piecePanel.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * ((double) 150/1080))));
         piecePanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
         piecePanel.setBackground(Colors.sideColor);
         piecePanel.setBorder(new MatteBorder(4, 0, 0, 0, Colors.borderColor));
@@ -70,14 +74,14 @@ public class Player extends JPanel {
 
     private void addComponents() {
         pawns = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-        pawns.setPreferredSize(new Dimension(0, 50));
+        pawns.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * ((double) 50/1080))));
         pawns.setBackground(Colors.sideColor);
         lightPieces = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-        lightPieces.setPreferredSize(new Dimension(0, 50));
+        lightPieces.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * ((double) 50/1080))));
         lightPieces.setBackground(Colors.sideColor);
         lightPieces.setBorder(new MatteBorder(2, 0, 2, 0, Colors.borderColor));
         heavyPieces = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-        heavyPieces.setPreferredSize(new Dimension(0, 50));
+        heavyPieces.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * ((double) 50/1080))));
         heavyPieces.setBackground(Colors.sideColor);
 
 
@@ -97,19 +101,19 @@ public class Player extends JPanel {
         JLabel piece;
         if (i == 10 || i == 11) {
             piece = new JLabel(new ImageIcon(piecesImg[i].getScaledInstance(
-                    40, 40, Image.SCALE_SMOOTH)));
+                    (int) (Game.screenHeight * ((double) 40/1080)), (int) (Game.screenHeight * ((double) 40/1080)), Image.SCALE_SMOOTH)));
             piece.setBorder(new EmptyBorder(5, 0, 0, 0));
             pawns.add(piece);
 
         } else if (i >= 4 && i <= 7) {
             piece = new JLabel(new ImageIcon(piecesImg[i].getScaledInstance(
-                    40, 40, Image.SCALE_SMOOTH)));
+                    (int) (Game.screenHeight * ((double) 40/1080)), (int) (Game.screenHeight * ((double) 40/1080)), Image.SCALE_SMOOTH)));
             piece.setBorder(new EmptyBorder(5, 0, 0, 0));
             lightPieces.add(piece);
 
         } else {
              piece = new JLabel(new ImageIcon(piecesImg[i].getScaledInstance(
-                    40, 40, Image.SCALE_SMOOTH)));
+                     (int) (Game.screenHeight * ((double) 40/1080)), (int) (Game.screenHeight * ((double) 40/1080)), Image.SCALE_SMOOTH)));
                     piece.setBorder(new EmptyBorder(5, 0, 0, 0));
             heavyPieces.add(piece);
         }
@@ -126,7 +130,7 @@ public class Player extends JPanel {
         this.setBackground(Colors.sideColor);
 
         piecePanel.setBackground(Colors.sideColor);
-        piecePanel.setBorder(new MatteBorder(4, 0, 0, 0, Colors.borderColor));
+        piecePanel.setBorder(new MatteBorder((int) (Game.screenHeight * ((double) 4/ 1080)), 0, 0, 0, Colors.borderColor));
 
         player.setBackground(Colors.backgroundColor);
         text.setForeground(Colors.foreground);

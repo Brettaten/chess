@@ -1,7 +1,6 @@
 package chess.Frame;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +19,7 @@ public class Board extends JPanel {
     private BufferedImage img;
     private BufferedImage[] piecesImg;
     private boolean isDragged;
+    public static int squareSize;
     private int draggX;
     private int draggY;
     private int draggType;
@@ -31,14 +31,16 @@ public class Board extends JPanel {
     public Board(boolean color, GameUpdate gameUpdate) {
         piecesImg = new BufferedImage[12];
         img = Ressources.pieces;
-        addImg();
-
+        double widthFactor = (double) 560 /1920;
+        this.squareSize = (int) (Game.screenWidth - (2*(Game.screenWidth * widthFactor)))/8;
         this.gameUpdate = gameUpdate;
         this.isDragged = false;
         this.draggType = -1;
         this.draggX = -1;
         this.draggPosY = -1;
-        this.setBorder(new LineBorder(Colors.borderColor, 5));
+        this.setBorder(new LineBorder(Colors.borderColor, (int) (Game.screenHeight * ((double) 5/ 1080))));
+
+        addImg();
         
         Input input = new Input(gameUpdate);
         addMouseListener(input);
@@ -67,32 +69,32 @@ public class Board extends JPanel {
                 if (boardColor) {
                     if (gameUpdate.isCheckedAfter(i, j)) {
                         g.setColor(color5);
-                        g.fillRect(j * 100, i * 100, 100, 100);
+                        g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
                     } 
                     else {
                         g.setColor(color1);
-                        g.fillRect(j * 100, i * 100, 100, 100);
+                        g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
                     }
                     if (gameUpdate.isLastMove(i, j)) {
                         g.setColor(color4);
-                        g.fillRect(j * 100, i * 100, 100, 100);
+                        g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
                     }
                     if (gameUpdate.isSelected(i, j)) {
                          if(gameUpdate.isEnemy(i,j)){
                             g.setColor(color3);
-                            g.fillRect(j*100,i*100,100,5);
-                            g.fillRect(j*100, i*100+95, 100, 5);
-                            g.fillRect(j*100, i*100, 5, 100);
-                            g.fillRect(j*100+95, i*100, 5, 100);
+                            g.fillRect(j*squareSize,i*squareSize,squareSize, (int) (squareSize*0.05));
+                            g.fillRect(j*squareSize, (int) (i*squareSize+squareSize-(squareSize*0.05)), squareSize, (int) (squareSize*0.05));
+                            g.fillRect(j*squareSize, i*squareSize, (int) (squareSize*0.05), squareSize);
+                            g.fillRect(j*squareSize+squareSize-(int) (squareSize*0.05), i*squareSize, (int) (squareSize*0.05), squareSize);
                         }
                         else{
                         g.setColor(color3);
-                        g.fillArc(j * 100 + 50-25/2, i * 100 + 50-25/2, 25, 25, 0, 360);
+                        g.fillArc(j * squareSize + squareSize/2 - squareSize/8, i * squareSize + squareSize/2 - squareSize/8, squareSize/4, squareSize/4, 0, 360);
                         }
                     }
                     if(gameUpdate.isMarked(i, j)){
                         g.setColor(color5);
-                        g.fillRect(j * 100, i * 100, 100, 100);
+                        g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
                     }
                     
                     if (j != 7) {
@@ -101,32 +103,32 @@ public class Board extends JPanel {
                 } else {
                     if (gameUpdate.isCheckedAfter(i, j)) {
                         g.setColor(color5);
-                        g.fillRect(j * 100, i * 100, 100, 100);
+                        g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
                     } 
                     else {
                         g.setColor(color2);
-                        g.fillRect(j * 100, i * 100, 100, 100);
+                        g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
                     }
                     if (gameUpdate.isLastMove(i, j)) {
                         g.setColor(color4);
-                        g.fillRect(j * 100, i * 100, 100, 100);
+                        g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
                     }
                     if (gameUpdate.isSelected(i, j)) {
                         if(gameUpdate.isEnemy(i,j)){
                             g.setColor(color3);
-                            g.fillRect(j*100,i*100,100,5);
-                            g.fillRect(j*100, i*100+95, 100, 5);
-                            g.fillRect(j*100, i*100, 5, 100);
-                            g.fillRect(j*100+95, i*100, 5, 100);
+                            g.fillRect(j*squareSize,i*squareSize,squareSize, (int) (squareSize*0.05));
+                            g.fillRect(j*squareSize, (int) (i*squareSize+squareSize-(squareSize*0.05)), squareSize, (int) (squareSize*0.05));
+                            g.fillRect(j*squareSize, i*squareSize, (int) (squareSize*0.05), squareSize);
+                            g.fillRect(j*squareSize+squareSize-(int) (squareSize*0.05), i*squareSize, (int) (squareSize*0.05), squareSize);
                         }
                         else{
                         g.setColor(color3);
-                        g.fillArc(j * 100 + 50-25/2, i * 100 + 50-25/2, 25, 25, 0, 360);
+                            g.fillArc(j * squareSize + squareSize/2 - squareSize/8, i * squareSize + squareSize/2 - squareSize/8, squareSize/4, squareSize/4, 0, 360);
                         }
                     }
                     if(gameUpdate.isMarked(i, j)){
                         g.setColor(color5);
-                        g.fillRect(j * 100, i * 100, 100, 100);
+                        g.fillRect(j * squareSize, i * squareSize, squareSize, squareSize);
                     }
                     if (j != 7) {
                         boardColor = true;
@@ -143,27 +145,36 @@ public class Board extends JPanel {
                         ;
                     }
                     else if(gameUpdate.pieces[i][j].length() == 4) {
-                        g.drawImage(piecesImg[Integer.parseInt(gameUpdate.pieces[i][j].substring(0, 2))], j * 100,
-                                i * 100, null);
+                        g.drawImage(piecesImg[Integer.parseInt(gameUpdate.pieces[i][j].substring(0, 2))], j * squareSize,
+                                i * squareSize, null);
                     } else {
-                        g.drawImage(piecesImg[Character.getNumericValue(gameUpdate.pieces[i][j].charAt(0))], j * 100,
-                                i * 100, null);
+                        g.drawImage(piecesImg[Character.getNumericValue(gameUpdate.pieces[i][j].charAt(0))], j * squareSize,
+                                i * squareSize, null);
                     }
                 }
             }
         }
         if (isDragged == true) {
             g.setColor(color3);
-            g.fillRect(draggPosY*100, draggPosX*100, 100, 100);
+            g.fillRect(draggPosY*squareSize, draggPosX*squareSize, squareSize, squareSize);
             g.drawImage(piecesImg[draggType], draggY - 50, draggX - 50, null);
         }
     }
 
     private void addImg() {
         for (int i = 0, j = 0; i < 6; i++, j += 2) {
-            piecesImg[j] = img.getSubimage(i * 100, 0, 100, 100);
-            piecesImg[j + 1] = img.getSubimage(i * 100, 100, 100, 100);
+            piecesImg[j] = scaleImage(img.getSubimage(i * 100, 0, 100, 100), squareSize, squareSize);
+            piecesImg[j + 1] = scaleImage(img.getSubimage(i * 100, 100, 100, 100), squareSize, squareSize);
         }
+    }
+
+    public BufferedImage scaleImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
+        BufferedImage scaledImage = new BufferedImage(targetWidth, targetHeight, originalImage.getType());
+        Graphics2D g = scaledImage.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+        g.dispose();
+        return scaledImage;
     }
 
     public void promtotion(Promotion promotion) {
@@ -173,7 +184,8 @@ public class Board extends JPanel {
     }
 
     public void isDragged(int x, int y, int type, int posX, int posY) {
-        if(type != -1 && posX != -1 && posY != -1 && x >= 0+25 && x <= 800-25 && y >= 0+25 && y <= 800-25){
+        int distance = (int) (Game.screenHeight * ((double) 25/1080));
+        if(type != -1 && posX != -1 && posY != -1 && x >= 0+distance && x <= (squareSize*8)-distance && y >= 0+distance && y <= (squareSize*8)-distance){
             isDragged = true;
             draggX = x;
             draggY = y;
@@ -181,24 +193,24 @@ public class Board extends JPanel {
             this.draggPosX = posX;
             this.draggPosY = posY;
         }
-        else if(type != -1 && posX != -1 && posY != -1 && x <= 0+25 || x >= 800-25 || y <= 0+25 || y >= 800-25){
+        else if(type != -1 && posX != -1 && posY != -1 && x <= 0+distance || x >= (squareSize*8)-distance || y <= 0+distance || y >= (squareSize*8)-distance){
             isDragged = true;
-            if(x <= 0+25){
-                draggX = 0+25;
+            if(x <= 0+distance){
+                draggX = 0+distance;
             }
-            else if(x >= 800-25){
-                draggX = 800-25;
+            else if(x >= (squareSize*8)-distance){
+                draggX = (squareSize*8)-distance;
             }
-            else if(x >= 0+25 && x <= 800-25){
+            else if(x >= 0+distance && x <= (squareSize*8)-distance){
                 draggX = x;
             }
-            if(y <= 0+25){
-                draggY = 0+25;
+            if(y <= 0+distance){
+                draggY = 0+distance;
             }
-            else if(y >= 800-25){
-                draggY = 800-25;
+            else if(y >= (squareSize*8)-distance){
+                draggY = (squareSize*8)-distance;
             }
-            else if(y >= 0+25 && y <= 800-25){
+            else if(y >= 0+distance && y <= (squareSize*8)-distance){
                 draggY = y;
             }
 

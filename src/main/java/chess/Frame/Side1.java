@@ -19,7 +19,7 @@ public class Side1 extends JPanel{
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         spacePanelTop = new JPanel();
-        spacePanelTop.setPreferredSize(new Dimension(0, 200));
+        spacePanelTop.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * ((double) 200/1080))));
 
         gameTimerPanel1 = new GameTimerPanel();
 
@@ -28,7 +28,7 @@ public class Side1 extends JPanel{
         this.add(gameTimerPanel1);
         
         spacePanelBottom = new JPanel();
-        spacePanelBottom.setPreferredSize(new Dimension(0, 200));
+        spacePanelBottom.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * ((double) 200/1080))));
 
         this.add(spacePanelBottom);
     }

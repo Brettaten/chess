@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
 import chess.Logic.Colors;
+import chess.Logic.Game;
 import chess.Logic.Settings;
 
 public class GameTimerPanel extends JPanel {
@@ -23,7 +24,7 @@ public class GameTimerPanel extends JPanel {
     }
 
     public void setUpPanel() {
-        this.setPreferredSize(new Dimension(100, 200));
+        this.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double) 100/1920)), (int) (Game.screenHeight * ((double) 200/1080))));
         this.setLayout(new GridLayout(1, 1));
         this.setBackground(Colors.backgroundColor);
         this.setBorder(new MatteBorder(4, 0, 4, 0, Colors.borderColor));
@@ -34,7 +35,7 @@ public class GameTimerPanel extends JPanel {
         timerLabel.setOpaque(true);
         timerLabel.setVerticalTextPosition(JLabel.CENTER);
         timerLabel.setHorizontalAlignment(JLabel.CENTER);
-        timerLabel.setFont(new Font(null, Font.PLAIN, 60));
+        timerLabel.setFont(new Font(null, Font.PLAIN, (int) (Game.screenHeight*0.055)));
         timerLabel.setText("05:00");
         timerLabel.setBackground(Colors.sideColor);
         timerLabel.setForeground(Colors.foreground);
@@ -59,7 +60,7 @@ public class GameTimerPanel extends JPanel {
        super.paintComponent(g);
 
        this.setBackground(Colors.backgroundColor);
-        this.setBorder(new MatteBorder(4, 0, 4, 0, Colors.borderColor));
+        this.setBorder(new MatteBorder((int) (Game.screenHeight * ((double) 4/ 1080)), 0, (int) (Game.screenHeight * ((double) 4/ 1080)), 0, Colors.borderColor));
 
         timerLabel.setBackground(Colors.sideColor);
         timerLabel.setForeground(Colors.foreground);

@@ -20,6 +20,7 @@ import javax.swing.border.MatteBorder;
 
 import chess.Inputs.TopInputs;
 import chess.Logic.Colors;
+import chess.Logic.Game;
 
 public class MenuBar extends JMenuBar {
 
@@ -49,7 +50,7 @@ public class MenuBar extends JMenuBar {
 
     private void setGUI() {
         UIManager.put("Menu.foreground", Colors.foreground);
-        UIManager.put("Menu.font", new Font(null, Font.PLAIN, 30));
+        UIManager.put("Menu.font", new Font(null, Font.PLAIN, (int) (Game.screenHeight*0.0277)));
         UIManager.put("Menu.border", new LineBorder(Colors.menuBarColor, 0));
         UIManager.put("Menu.selectionBackground", Colors.menuBarColor);
         UIManager.put("Menu.selectionForeground", Colors.foreground);
@@ -60,7 +61,7 @@ public class MenuBar extends JMenuBar {
         UIManager.put("MenuItem.border", new LineBorder(Colors.menuBarColor, 0));
         UIManager.put("MenuItem.selectionBackground", Colors.menuBarColor);
         UIManager.put("MenuItem.selectionForeground", Colors.foreground);
-        UIManager.put("MenuItem.font", new Font(null, Font.PLAIN, 20));
+        UIManager.put("MenuItem.font", new Font(null, Font.PLAIN, (int) (Game.screenHeight*0.0185)));
 
         UIManager.put("PopupMenu.border", new LineBorder(Colors.menuBarColor));
     }
@@ -83,9 +84,9 @@ public class MenuBar extends JMenuBar {
                     gameItems[i] = new JMenuItem(gameNames[i]);
 
                     if (i == 0) {
-                        gameItems[i].setBorder(new MatteBorder(2, 0, 2, 0, Colors.borderColor));
+                        gameItems[i].setBorder(new MatteBorder((int) (Game.screenHeight * ((double) 2/ 1080)), 0, (int) (Game.screenHeight * ((double) 2/ 1080)), 0, Colors.borderColor));
                     } else {
-                        gameItems[i].setBorder(new MatteBorder(0, 0, 2, 0, Colors.borderColor));
+                        gameItems[i].setBorder(new MatteBorder(0, 0, (int) (Game.screenHeight * ((double) 2/ 1080)), 0, Colors.borderColor));
                     }
                     menu.add(gameItems[i]);
 
@@ -97,7 +98,7 @@ public class MenuBar extends JMenuBar {
                         menu.add(createMenu(j, i, themes));
                     } else {
                         gameItems[7] = new JMenuItem(settingsNames[j]);
-                        gameItems[7].setBorder(new MatteBorder(0, 0, 2, 0, Colors.borderColor));
+                        gameItems[7].setBorder(new MatteBorder(0, 0, (int) (Game.screenHeight * ((double) 2/ 1080)), 0, Colors.borderColor));
                         menu.add(gameItems[7]);
                     }
                 }
@@ -107,21 +108,21 @@ public class MenuBar extends JMenuBar {
 
     private JMenu createMenu(int j, int i, String[] items) {
         menuThemes = new JMenu(settingsNames[j]);
-        menuThemes.setFont(new Font(null, Font.PLAIN, 20));
+        menuThemes.setFont(new Font(null, Font.PLAIN, (int) (Game.screenHeight*0.0185)));
         menuThemes.setBackground(Colors.menuBarColor);
         menuThemes.setOpaque(true);
-        menuThemes.setBorder(new MatteBorder(2, 0, 2, 0, Colors.borderColor));
+        menuThemes.setBorder(new MatteBorder((int) (Game.screenHeight * ((double) 2/ 1080)), 0, (int) (Game.screenHeight * ((double) 2/ 1080)), 0, Colors.borderColor));
         menuThemes.setDelay(500);
 
         for (int k = 0; k < items.length; k++, i++) {
             JMenuItem menuItem = new JMenuItem(items[k]);
             menuItem.addActionListener(topInputs);
             if (k == 0) {
-                menuItem.setBorder(new MatteBorder(2, 2, 1, 2, Colors.borderColor));
+                menuItem.setBorder(new MatteBorder((int) (Game.screenHeight * ((double) 2/ 1080)), (int) (Game.screenHeight * ((double) 2/ 1080)), 1, (int) (Game.screenHeight * ((double) 2/ 1080)), Colors.borderColor));
             } else if (k == 4) {
-                menuItem.setBorder(new MatteBorder(1, 2, 2, 2, Colors.borderColor));
+                menuItem.setBorder(new MatteBorder(1, (int) (Game.screenHeight * ((double) 2/ 1080)), (int) (Game.screenHeight * ((double) 2/ 1080)), (int) (Game.screenHeight * ((double) 2/ 1080)), Colors.borderColor));
             } else {
-                menuItem.setBorder(new MatteBorder(1, 2, 1, 2, Colors.borderColor));
+                menuItem.setBorder(new MatteBorder(1, (int) (Game.screenHeight * ((double) 2/ 1080)), 1, (int) (Game.screenHeight * ((double) 2/ 1080)), Colors.borderColor));
             }
             gameItems[i] = menuItem;
             menuThemes.setLayout(new BorderLayout());
@@ -144,7 +145,7 @@ public class MenuBar extends JMenuBar {
     // }
     // }
     private ImageIcon arrow() {
-        BufferedImage image = new BufferedImage(7, 10, BufferedImage.TRANSLUCENT);
+        BufferedImage image = new BufferedImage((int) (Game.screenWidth * 0.00364), (int) (Game.screenWidth * 0.00925), BufferedImage.TRANSLUCENT);
 
         Graphics2D g = image.createGraphics();
         int[] x = { 0, 0, image.getWidth() };

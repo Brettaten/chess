@@ -7,6 +7,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 import chess.Logic.Colors;
+import chess.Logic.Game;
 import chess.Logic.GameUpdate;
 
 import java.awt.BorderLayout;
@@ -27,16 +28,16 @@ public class Top extends JPanel{
     
     Top(GameUpdate gameUpdate){
         //this.gameUpdate = gameUpdate;
-
-        this.setPreferredSize(new Dimension(0, 140));
+        double heightFactor = (double) 140 /1080;
+        this.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * heightFactor)));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(Colors.backgroundColor);
 
         textLabel = new JLabel();
         textLabel.setAlignmentX(CENTER_ALIGNMENT);
-        textLabel.setFont(new Font(null, Font.PLAIN, 50));
+        textLabel.setFont(new Font(null, Font.PLAIN, (int) (Game.screenHeight*0.0462)));
         textLabel.setOpaque(true);
-        textLabel.setPreferredSize(new Dimension(0, 100));
+        textLabel.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * ((double) 100/1080))));
         textLabel.setBackground(Colors.backgroundColor);
 
         panel = new JPanel();
@@ -46,7 +47,7 @@ public class Top extends JPanel{
 
         bar = new JPanel();
         bar.setLayout(new BorderLayout());
-        bar.setPreferredSize(new Dimension(0, 40));
+        bar.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * ((double) 40/1080))));
 
         menuBar = new MenuBar(labelNames);
 
@@ -59,7 +60,7 @@ public class Top extends JPanel{
     }
     public void promtotion(Promotion promotion) {
         this.promotion = promotion;
-        promotion.setPreferredSize(new Dimension(0, 100));
+        promotion.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * ((double) 100/1080))));
         panel.add(promotion);
     }
     public void removePromotion(){

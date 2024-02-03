@@ -10,6 +10,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 import chess.Logic.Colors;
+import chess.Logic.Game;
 import chess.Logic.GameUpdate;
 import chess.Inputs.BottomInput;
 
@@ -35,40 +36,41 @@ public class Bottom extends JPanel {
         importImg();
         rotateImg = colorImg(rotateImg);
         this.setBackground(Colors.backgroundColor);
-        this.setPreferredSize(new Dimension(800, 140));
+        double heightFactor = (double) 140 /1080;
+        this.setPreferredSize(new Dimension(0, (int) (Game.screenHeight * heightFactor)));
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
         newGame = new JLabel("New");
-        newGame.setFont(new Font(null, Font.BOLD, 60));
+        newGame.setFont(new Font((String) null, Font.BOLD, (int) (Game.screenHeight*0.055)));
         newGame.setHorizontalAlignment(JLabel.CENTER);
-        newGame.setPreferredSize(new Dimension(250, 0));
+        newGame.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double)250/1920)), 0));
         newGame.setForeground(Colors.foregroundColor);
         newGame.setBorder(new LineBorder(Colors.borderColor, 2));
 
         arrowLeft = new JLabel("<");
-        arrowLeft.setFont(new Font(null, Font.BOLD, 60));
-        arrowLeft.setPreferredSize(new Dimension(100, 0));
+        arrowLeft.setFont(new Font(null, Font.BOLD, (int) (Game.screenHeight*0.055)));
+        arrowLeft.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double)100/1920)), 0));
         arrowLeft.setHorizontalAlignment(JLabel.CENTER);
         arrowLeft.setForeground(Colors.foregroundColor);
         arrowLeft.setBorder(new MatteBorder(2, 0, 2, 2, Colors.borderColor));
 
         arrowRight = new JLabel(">");
-        arrowRight.setFont(new Font(null, Font.BOLD, 60));
-        arrowRight.setPreferredSize(new Dimension(100, 0));
+        arrowRight.setFont(new Font(null, Font.BOLD, (int) (Game.screenHeight*0.055)));
+        arrowRight.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double)100/1920)), 0));
         arrowRight.setHorizontalAlignment(JLabel.CENTER);
         arrowRight.setForeground(Colors.foregroundColor);
         arrowRight.setBorder(new MatteBorder(2, 0, 2, 0, Colors.borderColor));
 
         surrender = new JLabel("X");
-        surrender.setFont(new Font(null, Font.BOLD, 60));
-        surrender.setPreferredSize(new Dimension(250, 100));
+        surrender.setFont(new Font(null, Font.BOLD, (int) (Game.screenHeight*0.055)));
+        surrender.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double)250/1920)), 0));
         surrender.setHorizontalAlignment(JLabel.CENTER);
         surrender.setForeground(Colors.foregroundColor);
         surrender.setBorder(new LineBorder(Colors.borderColor, 2));
 
         rotate = new JLabel();
         rotate.setIcon(new ImageIcon(rotateImg));
-        rotate.setPreferredSize(new Dimension(100, surrender.getHeight()));
+        rotate.setPreferredSize(new Dimension((int) (Game.screenWidth * ((double)100/1920)), surrender.getHeight()));
         rotate.setHorizontalAlignment(JLabel.CENTER);
 
         this.add(Box.createHorizontalGlue());
@@ -122,7 +124,7 @@ public class Bottom extends JPanel {
 
     private BufferedImage colorImg(BufferedImage img) {
         Color color = Colors.foregroundColor;
-        Image image = img.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        Image image = img.getScaledInstance((int) (Game.screenHeight * ((double) 80/1080)), (int) (Game.screenHeight * ((double) 80/1080)), Image.SCALE_SMOOTH);
 
         BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
                 BufferedImage.TYPE_INT_ARGB);

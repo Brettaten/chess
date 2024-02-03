@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputListener;
 
+import chess.Frame.Board;
 import chess.Logic.Game;
 import chess.Logic.GameUpdate;
 
@@ -35,8 +36,8 @@ public class Input implements MouseInputListener {
             if (gameUpdate.isPromoting == false && gameUpdate.maxMove == gameUpdate.currentMove
                     && gameUpdate.surrender == false && gameUpdate.isEnd == false
                     && gameUpdate.settingsActive == false) {
-                y = e.getX() / 100;
-                x = e.getY() / 100;
+                y = e.getX() / Board.squareSize;
+                x = e.getY() / Board.squareSize;
 
                 startDraggx = x;
                 startDraggy = y;
@@ -56,15 +57,15 @@ public class Input implements MouseInputListener {
     public void mouseReleased(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e)) {
             gameUpdate = Game.gameUpdate;
-            y = e.getX() / 100;
-            x = e.getY() / 100;
+            y = e.getX() / Board.squareSize;
+            x = e.getY() / Board.squareSize;
             gameUpdate.clearMarkedList();
             gameUpdate.draggEnd(x, y);
         }
         if (SwingUtilities.isRightMouseButton(e) && gameUpdate.isDragged == false && gameUpdate.settingsActive == false){
             gameUpdate = Game.gameUpdate;
-            y = e.getX() / 100;
-            x = e.getY() / 100;
+            y = e.getX() / Board.squareSize;
+            x = e.getY() / Board.squareSize;
             gameUpdate.markField(x, y);
         }
     }

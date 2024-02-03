@@ -1,7 +1,6 @@
 package chess.Frame;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -19,6 +18,7 @@ public class Frame extends JFrame {
     public static boolean color = true;
 
     public Frame(Board board, GameUpdate gameUpdate) {
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true); // cant change size
         this.setTitle("Chess"); // set Titel
@@ -34,7 +34,7 @@ public class Frame extends JFrame {
         top = new Top(gameUpdate);
         bottom = new Bottom(gameUpdate);
 
-        board.setPreferredSize(new Dimension(700, 700));
+        //board.setPreferredSize(new Dimension(700, 700));
 
         this.add(board, BorderLayout.CENTER);
         this.add(side1 , BorderLayout.WEST);
